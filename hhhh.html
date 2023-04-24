@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h3 {text-align:center;}
+        h1 {text-align: center;}
+        div {text-align: center;}
+    </style>
+    <title>Medical Chat Bot</title>
+</head>
+
+
+
+<body style="background-color:powderblue;">
+    <h1><centre>Medical chat bot</centre></h1>
+        <i><h3>ChatMD is a revolutionary chatbot that has the potential to replace the need for a general physician. It is an AI-powered tool that can diagnose and treat common ailments through a simple chat interface. ChatMD uses natural language processing and machine learning algorithms to understand patients' symptoms and provide accurate medical advice. </h3></i>
+        
+    <div id="chatbox">
+        <div id="conversation"></div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Type your message here">
+
+            <button id="send-button">Send</button>
+            <hr>
+        
+        </div>
+        <img src="https://thumbs.dreamstime.com/b/medicine-doctor-holding-red-heart-shape-hand-medical-icon-network-connection-modern-virtual-screen-interface-service-mind-99681240.jpg" alt="Girl in a jacket" width="700" height="400">    
+    </div>
+
+   
+        
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#send-button').on('click', function() {
+                var user_input = $('#user-input').val();
+                if (user_input != '') {
+                    $('#conversation').append('<div class="user-message">' + user_input + '</div>');
+                    $('#user-input').val('');
+                    $.getJSON('/message/', {'msg': user_input}, function(data) {
+                        var bot_response = data.response;
+                        $('#conversation').append('<div class="bot-message">' + bot_response + '</div>');
+                        $('#conversation').scrollTop($('#conversation')[0].scrollHeight);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
